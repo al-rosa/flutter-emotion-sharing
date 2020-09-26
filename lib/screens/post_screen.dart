@@ -1,29 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-const icons = <Map<String, dynamic>>[
-  {
-    'emotion': 'very_dissatisfied',
-    'icon': Icon(Icons.sentiment_very_dissatisfied),
-  },
-  {
-    'emotion': 'dissatisfied',
-    'icon': Icon(Icons.sentiment_dissatisfied),
-  },
-  {
-    'emotion': 'neutral',
-    'icon': Icon(Icons.sentiment_neutral),
-  },
-  {
-    'emotion': 'satisfied',
-    'icon': Icon(Icons.sentiment_satisfied),
-  },
-  {
-    'emotion': 'very_satisfied',
-    'icon': Icon(Icons.sentiment_very_satisfied),
-  }
-];
+import 'package:flutter_emotion_sharing/constants.dart';
 
 class PostScreen extends StatefulWidget {
   static String id = 'post_screen';

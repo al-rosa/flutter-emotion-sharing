@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_emotion_sharing/constants.dart';
+import 'package:flutter_emotion_sharing/utils.dart';
 
 class DetailScreen extends StatefulWidget {
   static String id = 'detail_screen';
@@ -14,9 +15,10 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String _statusId;
-  Icon _icon;
-  String _memo;
+  List<Map<String, dynamic>> _statusList;
+  Icon _displayIcon;
+  String _displayMemo;
+  DateTime _displayDateTime;
 
   @override
   void initState() {
@@ -29,17 +31,22 @@ class _DetailScreenState extends State<DetailScreen> {
         .collection('users')
         .doc('cckf1U7FUgbK7yiHbz9b')
         .collection('statuses')
-        .limit(1)
         .get();
-    
-    Map<String,dynamic> status = snapshot.docs.first.data(); 
-    
-    final int index =icons.indexWhere((element) => element['emotion']==status['emotion']) ;
+
+    List<Map<String, dynamic>> statuses =
+        snapshot.docs.map((e) => e.data()).toList();
+    Map<String, dynamic> latestStatus = statuses[0];
+
+    final int index = icons
+        .indexWhere((element) => element['emotion'] == latestStatus['emotion']);
     final icon = icons[index]['icon'];
-    
-   setState(() {
-     _icon = statu['emotion']
-   }); 
+
+    setState(() {
+      _statusList = statuses;
+      _displayIcon = icon;
+      _displayMemo = latestStatus['memo'];
+      _displayDateTime = (latestStatus['timestamp']).toDate();
+    });
   }
 
   // Future<void> _setStatus() {
@@ -53,8 +60,13 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Container(
           child: Column(children: <Widget>[
         Container(),
-        Align(alignment: Alignment.center, child: _icon),
-        Text(_memo != null ? _memo : '')
+        Align(
+            alignment: Alignment.centerRight,
+            child: Text(_displayDateTime != null
+                ? formatDateTime(_displayDateTime)
+                : '')),
+        Align(alignment: Alignment.center, child: _displayIcon),
+        Text(_displayMemo != null ? _displayMemo : '')
       ])),
     );
   }

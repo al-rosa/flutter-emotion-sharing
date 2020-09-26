@@ -16,3 +16,27 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+///表示するiconsの定義
+const icons = <Map<String, dynamic>>[
+  {
+    'emotion': 'very_dissatisfied',
+    'icon': Icon(Icons.sentiment_very_dissatisfied),
+  },
+  {
+    'emotion': 'dissatisfied',
+    'icon': Icon(Icons.sentiment_dissatisfied),
+  },
+  {
+    'emotion': 'neutral',
+    'icon': Icon(Icons.sentiment_neutral),
+  },
+  {
+    'emotion': 'satisfied',
+    'icon': Icon(Icons.sentiment_satisfied),
+  },
+  {
+    'emotion': 'very_satisfied',
+    'icon': Icon(Icons.sentiment_very_satisfied),
+  }
+];
