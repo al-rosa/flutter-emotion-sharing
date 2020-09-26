@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30.0,
               ),
               RoundedButton(
-                color: Colors.blueAccent,
+                color: Colors.lightBlueAccent,
                 title: 'ログイン',
                 onPressed: () async {
                   setState(() {
