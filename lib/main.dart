@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_emotion_sharing/screens/welcome_screen.dart';
+import 'package:flutter_emotion_sharing/screens/detail_screen.dart';
 import 'package:flutter_emotion_sharing/screens/login_screen.dart';
-import 'package:flutter_emotion_sharing/screens/registration_screen.dart';
 import 'package:flutter_emotion_sharing/screens/post_screen.dart';
+import 'package:flutter_emotion_sharing/screens/registration_screen.dart';
+import 'package:flutter_emotion_sharing/screens/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           WelcomeScreen.id: (context) => WelcomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
-          PostScreen.id: (BuildContext context) => PostScreen()
+          PostScreen.id: (BuildContext context) => PostScreen(),
+          DetailScreen.id: (context) => DetailScreen('テストユーザー')
         });
   }
 }
