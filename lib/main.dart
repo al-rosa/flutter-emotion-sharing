@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: WelcomeScreen.id,
+        initialRoute: DetailScreen.id,
         routes: {
           WelcomeScreen.id: (context) => WelcomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),

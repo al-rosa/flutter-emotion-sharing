@@ -41,22 +41,22 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
-  List<charts.Series<EmotionLevel, int>> _createChartData() {
+  List<charts.Series<Emotion, int>> _createChartData() {
     if (_statusList == null) return [];
 
     int count = 0;
-    final List<EmotionLevel> data = _statusList.map((status) {
+    final List<Emotion> data = _statusList.map((status) {
       final int level =
           bigIcons.indexWhere((icon) => icon['emotion'] == status['emotion']);
-      return EmotionLevel(count++, level);
+      return Emotion(count++, level);
     }).toList();
 
     return [
-      new charts.Series<EmotionLevel, int>(
-        id: 'Sales',
+      new charts.Series<Emotion, int>(
+        id: 'emotions',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (EmotionLevel level, _) => level.order,
-        measureFn: (EmotionLevel level, _) => level.level,
+        domainFn: (Emotion emotion, _) => emotion.order,
+        measureFn: (Emotion emotion, _) => emotion.level,
         data: data,
       )
     ];
@@ -75,9 +75,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 }
 
-class EmotionLevel {
+class Emotion {
   final int order;
   final int level;
 
-  EmotionLevel(this.order, this.level);
+  Emotion(this.order, this.level);
 }

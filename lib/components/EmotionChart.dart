@@ -69,12 +69,25 @@ class _EmotionChartState extends State<EmotionChart> {
           child: charts.LineChart(
             widget.seriesList,
             animate: widget.animate,
-            defaultRenderer: new charts.LineRendererConfig(includePoints: true),
             selectionModels: [
               charts.SelectionModelConfig(
                 type: charts.SelectionModelType.info,
                 changedListener: _onSelectionChanged,
-              )
+              ),
+              // charts.SelectionModelConfig(
+              // type: charts.SelectionModelType.action)
+            ],
+            behaviors: [
+              charts.LinePointHighlighter(
+                  showHorizontalFollowLine:
+                      charts.LinePointHighlighterFollowLineType.none,
+                  showVerticalFollowLine:
+                      charts.LinePointHighlighterFollowLineType.nearest),
+              charts.SelectNearest(
+                  eventTrigger: charts.SelectionTrigger.tapAndDrag),
+              charts.InitialSelection(selectedDataConfig: [
+                charts.SeriesDatumConfig<int>('emotions', 6)
+              ]),
             ],
           )),
     ];
