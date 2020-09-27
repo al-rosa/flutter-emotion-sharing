@@ -17,6 +17,12 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
+const kEmotionContainerDecoration = BoxDecoration(
+  border: Border(
+    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+  ),
+);
+
 ///表示するiconsの定義
 const icons = <Map<String, dynamic>>[
   {

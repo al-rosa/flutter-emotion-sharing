@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_emotion_sharing/screens/detail_screen.dart';
 import 'package:flutter_emotion_sharing/screens/login_screen.dart';
 import 'package:flutter_emotion_sharing/screens/post_screen.dart';
 import 'package:flutter_emotion_sharing/screens/registration_screen.dart';
+import 'package:flutter_emotion_sharing/screens/list_screen.dart';
 import 'package:flutter_emotion_sharing/screens/welcome_screen.dart';
 
 Future<void> main() async {
@@ -11,6 +13,8 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
+User currentUser;
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,6 +24,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColor: Color.fromARGB(255, 232, 235, 242),
+          scaffoldBackgroundColor: Color.fromARGB(255, 250, 252, 255),
         ),
         initialRoute: DetailScreen.id,
         routes: {
@@ -27,7 +33,8 @@ class MyApp extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           RegistrationScreen.id: (context) => RegistrationScreen(),
           PostScreen.id: (BuildContext context) => PostScreen(),
-          DetailScreen.id: (context) => DetailScreen('テストユーザー')
+          DetailScreen.id: (context) => DetailScreen('テストユーザー'),
+          ListScreen.id: (context) => ListScreen(),
         });
   }
 }
