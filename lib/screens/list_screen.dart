@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_emotion_sharing/main.dart';
 import 'package:flutter_emotion_sharing/screens/post_screen.dart';
+import 'package:flutter_emotion_sharing/constants.dart';
 
 User loggedInUser = FirebaseAuth.instance.currentUser;
 CollectionReference _firestore = FirebaseFirestore.instance.collection('users');
@@ -70,14 +71,15 @@ class _ListScreenState extends State<ListScreen> {
                   final String newMemo =
                       snapshot.data.docs.first.data()['memo'];
 
+                  final int index = bigIcons.indexWhere((icon) =>
+                      icon['emotion'] ==
+                      snapshot.data.docs.first.data()['emotion']);
+                  final icon = bigIcons[index]['icon'];
+
                   return MyEmotion(
                     myUser: user,
                     myMemo: newMemo,
-                    myEmotion: Icon(
-                      Icons.sentiment_very_dissatisfied,
-                      size: 60.0,
-                      color: Colors.white,
-                    ),
+                    myEmotion: icon,
                   );
                 },
               ),
@@ -89,7 +91,15 @@ class _ListScreenState extends State<ListScreen> {
                 child: ListView(
                   children: [
                     OthersEmotion(
-                      othersUser: user,
+                      othersUser: 'aran@email.com',
+                      othersMemo: '彼女に振られた',
+                      othersEmotion: Icon(
+                        Icons.sentiment_very_dissatisfied,
+                        size: 60.0,
+                      ),
+                    ),
+                    OthersEmotion(
+                      othersUser: 'tomofumi@eamil.com',
                       othersMemo: memo,
                       othersEmotion: Icon(
                         Icons.sentiment_very_dissatisfied,
@@ -97,56 +107,8 @@ class _ListScreenState extends State<ListScreen> {
                       ),
                     ),
                     OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
-                      othersEmotion: Icon(
-                        Icons.sentiment_very_dissatisfied,
-                        size: 60.0,
-                      ),
-                    ),
-                    OthersEmotion(
-                      othersUser: user,
-                      othersMemo: memo,
+                      othersUser: 'milkBoy@email.com',
+                      othersMemo: 'where is my milk coffee',
                       othersEmotion: Icon(
                         Icons.sentiment_very_dissatisfied,
                         size: 60.0,
@@ -196,7 +158,7 @@ class OthersEmotion extends StatelessWidget {
       child: ListTile(
         leading: othersEmotion,
         title: Text(othersUser),
-        subtitle: Text(memo),
+        subtitle: Text(othersMemo),
       ),
     );
   }
