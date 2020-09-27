@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_emotion_sharing/components/EmotionChart.dart';
 import 'package:flutter_emotion_sharing/constants.dart';
 
@@ -15,9 +16,10 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> _statusList;
+  final TextEditingController _numberInputController =
+      TextEditingController(text: '7');
 
   @override
   void initState() {
@@ -30,7 +32,7 @@ class _DetailScreenState extends State<DetailScreen> {
         .collection('users')
         .doc('cckf1U7FUgbK7yiHbz9b')
         .collection('statuses')
-        .limit(7)
+        .limit(int.parse(_numberInputController.text))
         .get();
 
     List<Map<String, dynamic>> statuses =
@@ -62,16 +64,36 @@ class _DetailScreenState extends State<DetailScreen> {
     ];
   }
 
+  void _handleInputNumber(String _) {
+    _initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final children = <Widget>[
+      TextField(
+        controller: _numberInputController,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
+        decoration: InputDecoration(labelText: '取得する件数を入力'),
+        onChanged: _handleInputNumber,
+      )
+    ];
+
+    if (_statusList != null) {
+      children.insert(
+          0, EmotionChart(_statusList, _createChartData(), animate: true));
+    }
+
     return Scaffold(
-      appBar: AppBar(title: Text(widget.userName + 'の気持ち')),
-      body: Container(
-          padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-          child: _statusList != null
-              ? EmotionChart(_statusList, _createChartData(), animate: true)
-              : Container()),
-    );
+        appBar: AppBar(title: Text(widget.userName + 'の気持ち')),
+        body: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: children)));
   }
 }
 
