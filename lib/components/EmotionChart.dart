@@ -110,12 +110,19 @@ class _EmotionChartState extends State<EmotionChart> {
       ),
     ];
 
-    if (_icon != null) children.add(_icon);
+    if (_icon != null)
+      children.add(Padding(
+        padding: EdgeInsets.only(bottom: 20),
+        child: _icon,
+      ));
 
     if (_memo != null)
       children.add(Text(_memo, style: TextStyle(fontSize: 18)));
 
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround, children: children);
+    return Padding(
+        padding: EdgeInsets.only(bottom: 30),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: children));
   }
 }
