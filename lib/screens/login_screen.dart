@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_emotion_sharing/main.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../components/rounded_button.dart';
 import 'package:flutter_emotion_sharing/constants.dart';
+
+import 'list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -68,15 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     showSpinner = true;
                   });
                   try {
-                    UserCredential user =
+                    UserCredential credential =
                         await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
 
-                    if (user != null) {
+                    if (credential != null) {
+                      currentUser = credential.user;
                       setState(() {
                         showSpinner = false;
                       });
-                      print('成功');
+                      Navigator.pushNamed(context, ListScreen.id);
                     }
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'user-not-found') {
